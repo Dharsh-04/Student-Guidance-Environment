@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students Guidance Environment</title>
+    <style>
+        title
+        {
+            color:white;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #0c0b0c;
+            background-image: url("image.png");
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #ff9c2b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #333333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        h4.prediction {
+            color: #FF4500;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        p.encouragement {
+            color: #52d5df;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        ul {
+            text-align: left;
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #27e937;
+        }
+
+        .cover-image {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="cover-image">
+        <img src="logo.png">
+    </div>
+    <h1 style="color: #eeeeee;">Students Guidance Environment</h1>
+    <h2 style="color: #DAF746;">Take a Test and provide the gained score in the skill test</h2>
+    <button>Take Quiz</button>
+
+    <form action='http://127.0.0.1:5000/predict' method='POST' id="studentForm">
+        <label for="course">Course (1-IT, 2-MEC, 3-ECE):</label>
+        <input type="text" id="course" name="course" required>
+
+        <label for="gpa">GPA:</label>
+        <input type="number" id="gpa" name="gpa" step="0.01" required>
+
+        <label for="workshops">No. of Workshops Attended:</label>
+        <input type="number" id="workshops" name="workshops" required>
+
+        <label for="projects">No. of Projects Done:</label>
+        <input type="number" id="projects" name="projects" required>
+
+        <label for="clubActivity">No. of Club Activities:</label>
+        <input type="number" id="clubActivity" name="clubActivity" required>
+
+        <label for="skills">Skill Test Score:</label>
+        <input type="number" id="skills" name="skills" required>
+
+        <button id="predict" type="submit">Predict</button>
+    </form>
+
+    {% if pred %}
+    {% if pred == "You are a Poor Student" %}
+    <h4 class="prediction">{{ pred }}</h4>
+    <p class="encouragement">Although you are facing challenges, remember that success is a journey. By following these steps, you can overcome obstacles and achieve your goals. Keep pushing forward!</p>
+    <ul id="suggestionsList" class="suggestions">
+        <li>Online Courses: Explore a variety of online courses to boost your knowledge and skills in specific subjects. Engage in self-paced learning to complement and strengthen your academic foundation.</li>
+        <li>Workshops: Attend workshops tailored to address key areas for improvement and strengthen your foundational skills. Participate actively to gain practical insights and hands-on experience.</li>
+        <li>Peer Mentoring: Connect with peer mentors to receive personalized guidance and valuable advice.</li>
+        <li>Skill Building: Actively participate in skill-building activities and projects to apply theoretical knowledge in real-world scenarios.</li>
+    </ul>
+    {% elif pred == "You are an Average Student" %}
+    <h4 class="prediction">{{ pred }}</h4>
+    <p class="encouragement">Great effort! You are performing at an average level. Keep up the good work and consider the following suggestions to enhance your academic journey:</p>
+    <ul id="suggestionsList" class="suggestions">
+        <li>Explore additional Online Courses to deepen your understanding of specific subjects and broaden your skill set.</li>
+        <li>Participate in specialized Workshops to fine-tune your skills and gain practical insights in key areas of improvement.</li>
+        <li>Engage with Peer Mentors for valuable advice and guidance in navigating your academic challenges.</li>
+        <li>Continue Skill Building by actively participating in hands-on activities and projects to apply theoretical knowledge effectively.</li>
+    </ul>
+    {% elif pred == "You are a Good Student" %}
+    <h4 class="prediction">{{ pred }}</h4>
+    <p class="encouragement">Congratulations! You are excelling as a good student. Continue your outstanding performance, and consider the following suggestions to further enhance your academic success:</p>
+    <ul id="suggestionsList" class="suggestions">
+        <li>Explore Advanced Online Courses to deepen your expertise in specific subjects and stay ahead in your field of study.</li>
+        <li>Take on Leadership Roles in workshops to share your knowledge and gain experience in guiding others.</li>
+        <li>Mentor Peers by offering personalized guidance and support to help them achieve their academic goals.</li>
+        <li>Challenge Yourself by taking on complex projects and activities to continually push your boundaries and acquire advanced skills.</li>
+    </ul>
+    {% endif %}
+    {% endif %}
+
+</body>
+</html>
